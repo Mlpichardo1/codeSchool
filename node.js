@@ -101,7 +101,7 @@ server.on('close', function() {
 
 server.listen(8080);
 
-// LESSON 3
+// LESSON 3 STREAMS
 var fs = require('fs');
 var file = fs.createReadStream('fruits.txt');
 file.on('readable', function() {
@@ -110,3 +110,11 @@ file.on('readable', function() {
    console.log(chuck.toString());
   }
 });
+
+//CONT
+var fs = require('fs');
+
+var file = fs.createReadStream('fruits.txt');
+
+file.pipe(process.stdout);
+
