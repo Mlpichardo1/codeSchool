@@ -1,4 +1,4 @@
-// examples 1
+// LESSON 1
 var http = require('http');
 
 http.createServer(function(request, response) {
@@ -8,14 +8,14 @@ http.createServer(function(request, response) {
   
 }).listen(8080);
 
-//examples 2
+//examples 1
 var fs = require('fs');
 
 fs.readFile('index.html', function(error, contents) {
  console.log(contents); 
 });
 
-//examples 3
+//examples 2
 var http = require('http');
 var fs = require('fs');
 
@@ -29,7 +29,7 @@ http.createServer(function(request, response) {
 
 }).listen(8080);
 
-//example 4
+//example 3
 var http = require('http');
 var fs = require('fs');
 
@@ -45,7 +45,7 @@ http.createServer(function(request, response) {
 
 }).listen(8080);
 
-//example 5
+//example 4
 var http = require('http');
 
 http.createServer(function(request, response) {
@@ -101,3 +101,12 @@ server.on('close', function() {
 
 server.listen(8080);
 
+// LESSON 3
+var fs = require('fs');
+var file = fs.createReadStream('fruits.txt');
+file.on('readable', function() {
+ var chunk;
+  while(null !== (chuck = file.read())) {
+   console.log(chuck.toString());
+  }
+});
