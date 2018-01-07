@@ -118,3 +118,28 @@ var file = fs.createReadStream('fruits.txt');
 
 file.pipe(process.stdout);
 
+//LESSON 4 MODULES
+var warn = function(message) {
+  console.log("Warning: " + message);
+};
+
+var info = function(message) {
+  console.log("Info: " + message);
+};
+
+var error = function(message) {
+  console.log("Error: " + message);
+};
+module.exports.warn = warn;
+module.exports.info = info;
+module.exports.error = error;
+
+// Dependecy
+{
+  "name": "My Awesome Node App",
+  "version": "1",
+  "dependencies": {
+   "connect": "2.1.1",
+   "underscore": "1.3.3"
+  }
+}
