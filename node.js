@@ -143,3 +143,11 @@ module.exports.error = error;
    "underscore": "1.3.3"
   }
 }
+
+//LESSON 5 Express
+var express = require('express');
+var app = express();
+app.get('/tweets', function(req, res) {
+ res.sendFile(__dirname + "/tweets.html"); 
+});
+app.listen(8080);
