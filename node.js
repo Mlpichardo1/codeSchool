@@ -204,3 +204,60 @@ app.get('/', function(req, res) {
 request(searchURL).pipe(res);
   }); // Create server here
 app.listen(8080);
+
+// LESSON 6 SOCKET.IO
+// Sending data back and forth in realtime
+
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+io.on('connection', function(client){
+  console.log("Client connected...");
+});
+server.listen(8080);
+// Listening for Questions
+<script src="/socket.io/socket.io.js"></script>
+<script src="/insertQuestion.js"></script>
+
+<script>
+  var server = io.connect('http://localhost:8080');
+
+  // Insert code here
+  server.on('question', function(question) {
+insertQuestion(question);
+}); 
+
+// ANSWERS
+  var server = io.connect('http://localhost:8080');
+
+  server.on('question', function(question) {
+    insertQuestion(question);
+  });
+   server.on('answer', function(question, answer){
+answerQuestion(question, answer);
+});
+</script>
+
+//BroadCasting Questions and IF ASKED?
+// and answering
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+
+io.sockets.on('connection', function(client) {
+  console.log("Client connected...");
+  // listen for answers here
+  client.on('answer', function(question, answer) {
+    client.broadcast.emit('answer', question, answer);
+  });
+  client.on('question', function(question) {
+    if(!client.question_asked) {
+      client.question_asked = true;
+      client.broadcast.emit('question', question);
+    }
+  });
+});
+
+server.listen(8080);
