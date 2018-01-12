@@ -287,3 +287,38 @@ client.lpush("questions", question1, function(err, reply) {
 client.lpush("questions", question2, function(err, reply) {
   console.log(reply);
 });
+// CONT
+var redis = require('redis');
+var client = redis.createClient();
+
+client.lrange('questions', 0, -1, function(err, questions) {
+  console.log(questions);
+});
+
+// Emitting Stored Questions
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+
+var redis = require('redis');
+var redisClient = redis.createClient();
+
+io.sockets.on('connection', function(client) {
+  redisClient.lrange('questions', 0, -1, function(err, questions){
+questions.forEach(function(question) {
+  client.emit('question', question);
+});
+});
+  client.on('answer', function(question, answer) {
+    client.broadcast.emit('answer', question, answer);
+  });
+
+  client.on('question', function(question) {
+    if(!client.question_asked) {
+      client.question_asked = true;
+      client.broadcast.emit('question', question);
+      redisClient.lpush("questions", question);
+    }
+  });
+});
