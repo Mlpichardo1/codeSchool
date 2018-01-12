@@ -261,3 +261,29 @@ io.sockets.on('connection', function(client) {
 });
 
 server.listen(8080);
+
+// PERSISTING DATA   LESSON 7
+
+var redis = require('redis');
+var client = redis.createClient();
+client.set("name", "Manny");
+
+// Get a Key
+var redis = require('redis');
+var client = redis.createClient();
+var result = client.get('question', function(err, data) {
+  console.log(data);
+});
+
+// Working with Lists
+var redis = require('redis');
+var client = redis.createClient();
+var question1 = "Where is the dog?";
+var question2 = "Where is the cat?";
+
+client.lpush("questions", question1, function(err, reply) {
+  console.log(reply);
+});
+client.lpush("questions", question2, function(err, reply) {
+  console.log(reply);
+});
