@@ -55,3 +55,23 @@ $(function(){
     $('.city-list').append(list);
   }
 });
+  //Writing our own Middleware
+module.exports = function (request, response, next) {
+  var startTime = +new Date();
+  var stream = process.stdout;
+  var duration = null;
+
+  response.on('finish', function () {
+    duration = +new Date() - startTime;
+    stream.write("This request took " + duration + " ms");
+  });
+    next();
+};
+// GET
+module.exports = function(request, response, next) {
+  if (request.method === 'GET') {
+    next();
+  } else {
+    response.end("Method is not allowed");
+  }
+};
