@@ -111,3 +111,43 @@ app.param('year', function(request, response, next) {
     response.status(400).json("Invalid format for Year");
   }
 });
+
+// Lesson 4 POST AND DELETE
+// Parser Setup
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+var parseUrlencoded = bodyParser.urlencoded({ extended: false });
+
+app.post('/cities', parseUrlencoded, function (request, response) {
+  var city = createCity(request.body.name, request.body.description);
+  response.status(201).json(city);
+});
+
+app.listen(3000);
+
+var createCity = function(name, description){
+  cities[name] = description;
+  return name; 
+};
+
+// VALIDATION
+app.post('/cities', parseUrlencoded, function (request, response) {
+  if(request.body.description.length > 4){
+    var city = createCity(request.body.name, request.body.description);
+  response.status(201).json(city);
+  } else {
+    response.status(400).json('Invalid City');
+  }
+});
+
+// Delete route
+app.delete('/cities/:name', function (request, response) {
+  if(cities[request.cityName]){
+delete cities[request.cityName];
+    response.sendStatus(200);
+}
+  else {
+  response.sendStatus(404);
+}
+}); 
