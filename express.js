@@ -75,3 +75,39 @@ module.exports = function(request, response, next) {
     response.end("Method is not allowed");
   }
 };
+
+// Lesson 3 SEARCH
+ar app = express();
+
+var cities = ['Caspiana', 'Indigo', 'Paradise'];
+app.get('/cities', function(request, response) {
+  if(request.query.search) {
+    response.json(citySearch(request.query.search));
+  }
+}); 
+// City INFO
+app.get('/cities/:name', function (request, response) {
+  var cityInfo = cities[request.params.name];
+  if(cityInfo) {
+    response.json(cityInfo);
+  } else {
+    response.status(404).json("City not found");
+  }
+});
+// Dynamic Routes
+app.param();
+
+
+app.param('name', function(request, response, next) {
+  request.cityName = parseCityName(request.params.name);
+  next();
+});
+
+// Routes 3
+app.param('year', function(request, response, next) {
+  if(isYearFormat(request.params.year)) {
+    next();
+  } else {
+    response.status(400).json("Invalid format for Year");
+  }
+});
