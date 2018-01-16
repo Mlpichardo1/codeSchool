@@ -151,3 +151,107 @@ delete cities[request.cityName];
   response.sendStatus(404);
 }
 }); 
+
+//LESSON 5  Route Instance
+app.route('/cities')
+.get(function(request, response) {
+  if(request.query.search) {
+    response.json(citySearch(request.query.search));
+} else {
+    response.json(cities);
+}
+})
+
+// POST route for /cities
+.post(parseUrlencoded, function (request, response) {
+  if(request.body.description.length > 4) {
+    var city = createCity(request.body.name, request.body.description);
+    response.status(201).json(city);
+  } else {
+    response.status(400).json('Invalid City');
+  }
+});
+
+// GET route for /cities/:name
+app.route('/cities/:name')
+  .get(function (request, response) {
+  var cityInfo = cities[request.cityName];
+  if(cityInfo) {
+    response.json(cityInfo);
+  } else {
+    response.status(404).json('City not found');
+  }
+})
+
+// DELETE route for /cities/:name
+.delete(function (request, response) {
+  if(cities[request.cityName]) {
+    delete cities[request.cityName];
+    response.sendStatus(200);
+  } else {
+    response.sendStatus(404);
+  }
+});
+
+// Using a Router Instance
+var express = require('express');
+var app = express();
+
+var bodyParser = require('body-parser');
+var parseUrlencoded = bodyParser.urlencoded({ extended: false });
+
+// In memory store for the
+// cities in our application
+var cities = {
+  'Lotopia': 'Rough and mountainous',
+  'Caspiana': 'Sky-top island',
+  'Indigo': 'Vibrant and thriving',
+  'Paradise': 'Lush, green plantation',
+  'Flotilla': 'Bustling urban oasis'
+};
+
+app.param('name', function (request, response, next) {
+  request.cityName = parseCityName(request.params.name);
+});
+var router = express.Router();
+router.route('/')
+  .get(function (request, response) {
+    if(request.query.search){
+      response.json(citySearch(request.query.search));
+    }else{
+      response.json(cities);
+    }
+  })
+
+  .post(parseUrlencoded, function (request, response) {
+    if(request.body.description.length > 4){
+      var city = createCity(request.body.name, request.body.description);
+      response.status(201).json(city);
+    }else{
+      response.status(400).json('Invalid City');
+    }
+  });
+
+router.route('/:name')
+  .get(function (request, response) {
+    var cityInfo = cities[request.cityName];
+    if(cityInfo){
+      response.json(cityInfo);
+    }else{
+      response.status(404).json("City not found");
+    }
+  })
+
+  .delete(function (request, response) {
+    if(cities[request.cityName]){
+      delete cities[request.cityName];
+      response.sendStatus(200);
+    }else{
+      response.sendStatus(404);
+    }
+  });
+
+app.use('/cities', router);
+
+// 
+var router = require('./routes/cities.js');
