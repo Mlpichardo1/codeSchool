@@ -77,7 +77,7 @@ module.exports = function(request, response, next) {
 };
 
 // Lesson 3 SEARCH
-ar app = express();
+var app = express();
 
 var cities = ['Caspiana', 'Indigo', 'Paradise'];
 app.get('/cities', function(request, response) {
