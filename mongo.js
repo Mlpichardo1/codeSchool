@@ -29,6 +29,8 @@
 
 
 
+
+
 //  LESSON 5 Detecting Damage
 db.wands.aggregate([{"$group": {"_id": "$damage.magic", "wand_count": {"$sum": 1}}}])
 
