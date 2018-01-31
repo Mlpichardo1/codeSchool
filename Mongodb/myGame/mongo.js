@@ -1,25 +1,29 @@
-// Create a function that accepts the 4 attributes plus a 5th variable called db. This variable would reference the mongodb like in the shell. 
+//Write the command that will find all monsters with an attack lower than 10
 var mongo = function(db){ 
-    db.monsters.instert
-        ({"name": "Onyx", 
-        "health": 180, 
-        "last fought": "Dec 22, 2017", 
-        "attacks": ["bind", "boulder", "guard"], 
-        "db": "mongo"
-})
+    db.monsters.find({
+        "stats.attack": {"$lt": 10}})
 };
 
-    
-    //Write the javascript code that would insert the four attributes into the “monster” collection as a new document.
-db.monsters.instert({ "name": "Pikachu", "health": 115, 
-    "last fought": "Dec 27, 2017", 
-    "attacks": ["shock ", "tackle", "whip"], 
-    "stats": {"attack": 22, "defense": 15}})
-    
- // Write the code that would then console.log all the documents inside the collection.  
-   console.log(db.monsters.find());
-   
-  //Write the command that will find your monster based on a name
-  db.monsters.find({"name": "Pikachu"})
-  
-  
+//Write the command that will find all monsters with a level above 5 but below 15 inclusive
+db.monsters.find({
+"Level": {"$gt": 5, "$lt": 15}})
+
+//Write the command to find monsters that do not have the “bite” attack.
+db.monsters.find({
+"attacks.bite": false})
+
+//Write the command to find monsters with levels less than 6 but only return the name, level and health attributes
+db.monsters.find({
+"Level": {"$lt": 6}, 
+"type": false, "attacks": false, "stats": false, "style": false})
+
+//Write the command to find all monsters who attack is between 10 and 20 but do not include the monsters health or style
+db.monsters.find({
+"stats.attack": {"$gt": 10, "$lt": 20}, 
+"healt": false, "style": false})
+
+//Write the command to find out how many monsters are in the collection.
+db.monsters.find().count()
+
+//Write the command to sort the collection by the monsters level with the highest level at the top and the lowest at the bottom
+db.monsters.find().sort({"Level": -1})
