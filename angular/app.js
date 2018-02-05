@@ -1,5 +1,6 @@
+/* global angular*/
 (function() {
-var app = angular.module('rental', []);
+var app = angular.module('carRental', []);
 
 app.controller('RentalController', function(){
     this.products = cars;
@@ -12,8 +13,8 @@ var cars = [
         type: 'SUV',
         description: '6 passenger vehicle w/ Navigation and heated seats.',
         price: 119.95,
-        canPurchase: false,
-        soldOut: true
+        canPurchase: true,
+        soldOut: false
     },
     {
         name: 'Honda',
@@ -21,8 +22,8 @@ var cars = [
         type: 'Sedan',
         description: '5 passenger vehicle w/ Navigation and 30mpg Highway',
         price: 99.95,
-        canPurchase: false,
-        soldOut: true
+        canPurchase: true,
+        soldOut: false
     }];
     
 })();

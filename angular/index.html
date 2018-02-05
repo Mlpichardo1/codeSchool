@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="rental" lang="en">
+<html ng-app="carRental" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +8,14 @@
     <title>Angular</title>
 </head>
 <body ng-controller="RentalController as rental">
+    <h1>RENT A CAR</h1>
     <!-- Products Container -->
-    <div ng-show="rental.product.soldOut" class="list-group">
+    <div ng-show="rental.product.soldOut">
         <!-- Product Container -->
      <div ng-repeat="product in rental.products" class="list-group-item">
-        <h1><img ng-src="{{product.image}}"/>
-        {{product.type}} </h1>
-        <h2> ${{product.price}} </h2>
+        <h2><img ng-src="{{product.image}}"/>
+        {{product.type}} </h2>
+        <h2> {{product.price | currency}} </h2>
         <p> {{product.description}} </p>
         <button ng-show="product.canPurchase"> Rent </button>
      </div>
@@ -29,6 +30,9 @@
      
     </div>
     
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
     <script src="app.js"></script>
 </body>
