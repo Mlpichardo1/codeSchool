@@ -10,24 +10,18 @@
 <body ng-controller="RentalController as rental">
     <h1>RENT A CAR</h1>
     <!-- Products Container -->
-    <div ng-show="rental.product.soldOut">
+    <div>
         <!-- Product Container -->
      <div ng-repeat="product in rental.products" class="list-group-item">
         <h2><img ng-src="{{product.image}}"/>
         {{product.type}} </h2>
-        <h2> {{product.price | currency}} </h2>
+        <car-avail>
+        <h2> {{product.price | currency}} a day</h2>
+        <h3> Available Vehicles: {{product.available}} </h3>
         <p> {{product.description}} </p>
-        <button ng-show="product.canPurchase"> Rent </button>
+        <button ng-show="product.canPurchase"> Rent Now </button>
+        </car-avail>
      </div>
-        
-     <!--<div>-->
-     <!--   <h1> {{rental.products[1].image}} </h1>-->
-     <!--   <h1> {{rental.products[1].type}} </h1>-->
-     <!--   <h2> ${{rental.products[1].price}} </h2>-->
-     <!--   <p> {{rental.products[1].description}} </p>-->
-     <!--   <button ng-show="rental.products[1].canPurchase"> Rent </button>-->
-     <!--</div>-->
-     
     </div>
     
     

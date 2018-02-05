@@ -2,6 +2,13 @@
 (function() {
 var app = angular.module('carRental', []);
 
+app.directive('carAvail', function() {
+    return {
+        restrict: 'E',
+        templateURL: 'car-avail.html'
+    };
+});
+
 app.controller('RentalController', function(){
     this.products = cars;
 });
@@ -9,12 +16,12 @@ app.controller('RentalController', function(){
 var cars = [
     {
         name: 'Ford',
-        image: "http://st.motortrend.com/uploads/sites/10/2015/11/2016-ford-explorer-xlt-suv-angular-front.png?interpolation=lanczos-none&fit=around|300:199",
+        image: "https://article.images.consumerreports.org/prod/content/dam/CRO%20Images%202017/Magazine-Articles/April/Google-Auto-Profile-images-2017/PRF-496",
         type: 'SUV',
-        description: '6 passenger vehicle w/ Navigation and heated seats.',
+        description: '7 passenger vehicle w/ Navigation and heated seats.',
         price: 119.95,
         canPurchase: true,
-        soldOut: false
+        available: 3
     },
     {
         name: 'Honda',
@@ -23,7 +30,9 @@ var cars = [
         description: '5 passenger vehicle w/ Navigation and 30mpg Highway',
         price: 99.95,
         canPurchase: true,
-        soldOut: false
+        available: 5
+
     }];
     
 })();
+
