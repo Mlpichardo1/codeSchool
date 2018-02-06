@@ -15,12 +15,14 @@
      <div ng-repeat="product in rental.products" class="list-group-item">
         <h2><img ng-src="{{product.image}}"/>
         {{product.type}} </h2>
-        <car-avail>
+       
+        <div ng-show="product.canPurchase">
         <h2> {{product.price | currency}} a day</h2>
-        <h3> Available Vehicles: {{product.available}} </h3>
+        <h3 id="avail"> Available Vehicles: {{product.available}} </h3>
         <p> {{product.description}} </p>
-        <button ng-show="product.canPurchase"> Rent Now </button>
-        </car-avail>
+        <button ng-click="rental.rental()"> Rent Now </button>
+     
+        </div>
      </div>
     </div>
     
