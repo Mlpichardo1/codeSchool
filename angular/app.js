@@ -2,22 +2,17 @@
 (function() {
 var app = angular.module('carRental', []);
 
-app.controller('RentalController', function(){
+app.controller('RentalController', function($scope){
     this.products = cars;
-    this.rental = function(){
-        alert('hola');
-    var n = this.products.length - 1;
-    var i = this.products[n].available;
-   if (i >= 0){
-       i--; 
-       this.products[n].available = i;
-   }
-        console.log(i);
+    
+    $scope.cars = cars;
 
+$scope.decrementCars = function(car){
+    car.available--;
+    console.log(car);
 }
-
-
 });
+
 
 var cars = [
     {
