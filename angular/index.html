@@ -18,10 +18,9 @@
        
         <div ng-show="product.canPurchase">
         <h2> {{product.price | currency}} a day</h2>
-        <h3 id="avail"> Available Vehicles: {{product.available}} </h3>
+        <h3> Available Vehicles: {{product.available}} </h3>
         <p> {{product.description}} </p>
-        <button ng-click="decrementCars(cars)"> Rent Now </button>
-     
+        <button ng-click="decrementCars(product)"> Rent Now </button>
         </div>
      </div>
     </div>
